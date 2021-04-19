@@ -8,17 +8,22 @@ namespace CipherEncrypter
 {
     static class CipherEncrypter
     {
+        private static readonly int _incrementValue = 8; // Value to increment Ascii value with.
+
         public static string Encrypt(string inputString)
         {
             string encryptedOutputString = string.Empty;
-            byte[] charArray = Encoding.ASCII.GetBytes(inputString);
+            byte[] charArray = Encoding.ASCII.GetBytes(inputString); // Convert input string to ASCII char array.
 
             foreach (byte asciiValue in charArray)
             {
-                int asciiIncremented = asciiValue + 1;
-                encryptedOutputString += asciiIncremented + "-";
+                int asciiIncremented = asciiValue + _incrementValue; // Increment ASCII value with int value.
+                encryptedOutputString += asciiIncremented + "-"; // Add seperator.
             }
+            // Lazy solution to remove last seperator...
             encryptedOutputString = encryptedOutputString.Substring(0, encryptedOutputString.Length - 1);
+            
+            // Return "encrypted" string.
             return encryptedOutputString;
         }
 
@@ -30,7 +35,7 @@ namespace CipherEncrypter
 
             foreach (string asciiValueIncremented in encryptedArray)
             {
-                int asciiValue = int.Parse(asciiValueIncremented) - 1;
+                int asciiValue = int.Parse(asciiValueIncremented) - _incrementValue;
                 char c = Convert.ToChar(asciiValue);
 
                 decryptedOutputString += c;
